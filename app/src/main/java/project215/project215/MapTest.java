@@ -23,7 +23,7 @@ public class MapTest extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
+//foo, bar, etc.
 
     /**
      * Manipulates the map once available.
