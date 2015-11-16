@@ -5,6 +5,7 @@ Created by Matt
 11/15/2015
  */
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,9 +26,7 @@ public class Register extends AppCompatActivity {
         button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //register and go back to the login screen to login
-
             }
         });
 
@@ -36,6 +35,8 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //cancel registration
+                Intent login = new Intent(getApplicationContext(), Login.class);
+                startActivityForResult(login, 0);
             }
         });
 

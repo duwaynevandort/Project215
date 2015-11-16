@@ -17,7 +17,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="131dp"
-        android:text="Email" />
+        android:hint="Email"
+        android:background="@color/ripple_material_dark" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
         android:hint="Password"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/editText3"
-        android:layout_alignStart="@+id/editText3" />
+        android:layout_alignStart="@+id/editText3"
+        android:background="@color/ripple_material_dark" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -36,10 +38,11 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText5"
+        android:hint="Re-Enter Password"
         android:layout_below="@+id/editText4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
-        android:hint="Re-Enter Password" />
+        android:layout_alignLeft="@+id/editText4"
+        android:layout_alignStart="@+id/editText4"
+        android:background="@color/ripple_material_dark" />
 
     <Button
         android:layout_width="wrap_content"
@@ -49,4 +52,13 @@
         android:layout_below="@+id/editText5"
         android:layout_alignRight="@+id/editText5"
         android:layout_alignEnd="@+id/editText5" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/button4"
+        android:layout_below="@+id/editText5"
+        android:layout_alignLeft="@+id/editText5"
+        android:layout_alignStart="@+id/editText5" />
 </RelativeLayout>
