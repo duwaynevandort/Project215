@@ -44,10 +44,6 @@ public class MapTest extends FragmentActivity implements GoogleApiClient.Connect
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_map_test);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
         setUpMapIfNeeded();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -63,26 +59,6 @@ public class MapTest extends FragmentActivity implements GoogleApiClient.Connect
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
     }
-//foo, bar, etc.
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-//        mMap = googleMap;
-//
-//        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-//    }
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -131,12 +107,14 @@ public class MapTest extends FragmentActivity implements GoogleApiClient.Connect
     protected void onPause() {
         super.onPause();
         if (mGoogleApiClient.isConnected()) {
+            // Disconnect the API client and stop location updates when paused
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
     }
 
     private void handleNewLocation(Location location) {
+        // Will need to be changed to fit our purpose
         Log.i(TAG, location.toString());
         Log.i(TAG, "handling new location");
         double currentLatitude = location.getLatitude();
@@ -144,9 +122,13 @@ public class MapTest extends FragmentActivity implements GoogleApiClient.Connect
 
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
         Log.d(TAG, latLng.toString());
+
+        //Configure Pin
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .title("I am here!");
+
+        //Create a Pin on Map and Center around
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
@@ -165,6 +147,7 @@ public class MapTest extends FragmentActivity implements GoogleApiClient.Connect
     }
 
     private void setUpMap() {
+        //add initial set up of map
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
