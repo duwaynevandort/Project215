@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-/**
- * Created by Kenny on 11/15/2015.
+/*
+ * Author: Kenny
+ * Makes the pin creation layout
  */
 
 public class PinCreator extends Activity
 {
     private Spinner categorySpinner;
     private EditText descriptionField;
+    private Button SubmitButton;
+    private Button CancelButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
