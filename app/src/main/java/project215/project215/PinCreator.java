@@ -11,7 +11,8 @@ import android.widget.Spinner;
 
 /*
  * Author: Kenny
- * Makes the pin creation layout
+ * Manipulates the pin creation layout
+ *  and takes in the category and description
  */
 
 public class PinCreator extends Activity
@@ -53,18 +54,16 @@ public class PinCreator extends Activity
     {
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String categorySelected = parent.getItemAtPosition(position).toString();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
+
 }
