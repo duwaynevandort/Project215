@@ -25,7 +25,7 @@ public class MapTest extends FragmentActivity implements OnMapReadyCallback {
 
         //Start of potential fuck up:
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
         mMap.setTrafficEnabled(true);
         mMap.setIndoorEnabled(true);
