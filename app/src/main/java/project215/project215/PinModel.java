@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PinModel
+public class PinModel extends Model
 {
     static final int SUCCESS_CODE = 200;
 
@@ -37,7 +37,7 @@ public class PinModel
         List<Pin> pins = new ArrayList<Pin>();
 
         try{
-            String http = "http://162.243.52.70:7000/pins/getpins" +
+            String http = SERVER_URL + "/pins/getpins" +
                     "/" + lat1 +
                     "/" + lng1 +
                     "/" + lat2 +

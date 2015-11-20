@@ -12,7 +12,7 @@ import java.net.URL;
  * Created by Adam on 11/15/2015.
  *
  */
-public class ReportModel
+public class ReportModel extends Model
 {
     final static int SUCCESS_CODE = 200;
 
@@ -27,7 +27,7 @@ public class ReportModel
 
         try{
             //url for login
-            String http = "http://162.243.52.70:7000/pins/report/";
+            String http = SERVER_URL + "/pins/report/";
 
             //make url object
             url = new URL (http);

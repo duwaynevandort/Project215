@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
  * As specified in the diagram
  */
 
-public class UserModel
+public class UserModel extends Model
 {
     final static int SUCCESS_CODE = 200;
 
@@ -28,7 +28,7 @@ public class UserModel
 
         try{
             //url for register
-            String http = "http://162.243.52.70:7000/user/register/";
+            String http = SERVER_URL + "/user/register/";
 
             //make url object
             url = new URL (http);
