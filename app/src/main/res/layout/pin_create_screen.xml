@@ -54,7 +54,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="60dp"
         android:layout_marginStart="60dp"
-        android:background="#ff5757" />
+        android:background="#ff5757"
+        android:onClick="submitPinCreation"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -66,6 +67,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="60dp"
         android:layout_marginEnd="60dp"
-        android:background="#94fc6e" />
+        android:background="#94fc6e"
+        android:onClick="cancelPinCreation"/>
 
 </RelativeLayout>

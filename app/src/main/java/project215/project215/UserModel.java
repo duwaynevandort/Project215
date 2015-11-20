@@ -1,12 +1,12 @@
 package project215.project215;
 
+import org.json.simple.JSONObject;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.json.simple.JSONObject;
 
 /**
  * Created by Adam on 11/15/2015.

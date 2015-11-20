@@ -8,6 +8,6 @@ public class VoteModel
 {
     public static void createVoteRecord(int userID, int pinID, boolean isHere)
     {
-        // TODO: 11/15/2015  
+        // TODO: 11/15/2015
     }
 }

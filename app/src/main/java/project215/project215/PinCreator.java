@@ -8,19 +8,28 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 
 /*
  * Author: Kenny
  * Manipulates the pin creation layout
- *  and takes in the category and description
+ *      and takes in the category and description
  */
 
 public class PinCreator extends Activity
 {
+    SuperController pinController;
+
     private Spinner categorySpinner;
     private EditText descriptionField;
-    private Button SubmitButton;
-    private Button CancelButton;
+    //private Button submitButton;
+    //private Button cancelButton;
+
+    private String categorySelected;
+    private String descriptionText;
+    //private double userLatitude
+    //private double userLongitude
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -28,8 +37,11 @@ public class PinCreator extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pin_create_screen);
 
-        fillCategorySpinner();
+        descriptionField = (EditText) findViewById(R.id.pin_description_text);
+        //submitButton = (Button) findViewById(R.id.submit_pin_create_button);
+        //cancelButton = (Button) findViewById(R.id.cancel_pin_create_button);
 
+        fillCategorySpinner();
         addListenerToCategorySpinner();
     }
 
@@ -57,7 +69,7 @@ public class PinCreator extends Activity
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String categorySelected = parent.getItemAtPosition(position).toString();
+                categorySelected = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -66,4 +78,17 @@ public class PinCreator extends Activity
         });
     }
 
+    public void submitPinCreation(View view)
+    {
+        //TODO add Toast
+        descriptionText = descriptionField.getText().toString();
+        pinController.createPin(0, 0, categorySelected, descriptionText);
+        //this.finish()
+    }
+
+    public void cancelPinCreation(View view)
+    {
+        //TODO add Toast
+        this.finish();
+    }
 }
