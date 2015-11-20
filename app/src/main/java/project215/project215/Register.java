@@ -31,15 +31,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //register and go back to the login screen to login
-                //This part is not finished!!
-                //Needs to send email and password to plaice
+                //Sends email and password to UserModel to create user
                 UserModel.createUser(Email.toString(), Password.toString());
-                Intent map = new Intent(getApplicationContext(), MapTest.class);
-                startActivityForResult(map, 0);
+                Intent login = new Intent(getApplicationContext(), Login.class);
+                startActivityForResult(login, 0);
             }
         });
 
-        //Cacel is pushed if the user wants to cancel registration
+        //Cancel is pushed if the user wants to cancel registration or if they are stupid idiots
         Cancel = (Button) findViewById(R.id.button4);
         Cancel.setOnClickListener(new OnClickListener() {
             @Override

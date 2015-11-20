@@ -12,10 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Map;
+
 public class Login extends AppCompatActivity {
 
     Button Submit;
-    Button Cancel;
+    Button Register;
 
     EditText Email;
     EditText password;
@@ -30,17 +32,21 @@ public class Login extends AppCompatActivity {
         Submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //compare email and hashed password to current database
-                //dicks
                 //Goto Map View
-                Intent map = new Intent(getApplicationContext(), MapTest.class);
-                startActivityForResult(map, 0);
 
+                if (UserModel.checkUser(Email.toString(), password.toString()) == true) {
+                    Intent map = new Intent(getApplicationContext(), MapTest.class);
+                    startActivityForResult(map, 0);
+                }
+                else {
+                    // there's been an error
+                }
             }
         });
 
         //Cancel is pushed if the user is trying to register
-        Cancel = (Button) findViewById(R.id.button2);
-        Cancel.setOnClickListener(new View.OnClickListener() {
+        Register = (Button) findViewById(R.id.button2);
+        Register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Goto Register View
                 Intent reg = new Intent(getApplicationContext(), Register.class);
@@ -48,5 +54,4 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
 }

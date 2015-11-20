@@ -6,15 +6,17 @@ package project215.project215;
  */
 public class UserModel
 {
+
     public static boolean createUser(String username, String password)
     {
         // TODO: 11/15/2015
+        //send to the database
         return false;
     }
 
-    public static int getUserByEmail(String email)
-    {
-        // TODO: 11/15/2015
-        return 0;
+    public static boolean checkUser(String username, String passwordHash) {
+        // TODO: 11/16/2015 test this
+        //get from database
+        return false;
     }
 }
