@@ -114,7 +114,7 @@ public class PinModel extends Model
 
         try{
             //url for register
-            String http = "http://162.243.52.70:7000/pins/addpin/";
+            String http = SERVER_URL + "/pins/addpin/";
 
             //make url object
             url = new URL (http);

@@ -1,12 +1,19 @@
 package project215.project215;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Created by Adam on 11/15/2015.
@@ -16,6 +23,63 @@ import org.json.simple.JSONObject;
 public class UserModel extends Model
 {
     final static int SUCCESS_CODE = 200;
+
+    public static int getUserID(String username)
+    {
+        JSONObject json = new JSONObject();
+        URL url;
+        HttpURLConnection urlConnection;
+        DataOutputStream printout;
+        JSONParser parser = new JSONParser();
+
+        int userID = -1;
+
+        try{
+            String http = SERVER_URL + "/" + username;
+
+            url = new URL(http);
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            // GETTING
+            urlConnection.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(urlConnection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            //not sure if necessary, but response is a string buffer, so...?
+            String s = response.toString();
+
+            try{
+                //parse the response
+                JSONObject obj = (JSONObject) parser.parse(s);
+
+                userID = ((Long) obj.get("UserID")).intValue();
+
+            }catch (ParseException e){
+                e.printStackTrace();
+                return -1;
+            }
+
+            in.close();
+
+            //print result
+            System.out.println("\nResponse code: " + urlConnection.getResponseCode());
+            urlConnection.disconnect();
+
+        }catch (MalformedURLException e){
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return userID;
+    }
 
     public static boolean createUser(String username, String password)
     {
@@ -82,7 +146,7 @@ public class UserModel extends Model
 
         try{
             //url for login
-            String http = "http://162.243.52.70:7000/user/login/";
+            String http = SERVER_URL + "/user/login/";
 
             //make url object
             url = new URL (http);
