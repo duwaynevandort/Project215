@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
 /*
  * Author: Kenny
  * Manipulates the pin creation layout
@@ -80,15 +79,15 @@ public class PinCreator extends Activity
 
     public void submitPinCreation(View view)
     {
-        //TODO add Toast
         descriptionText = descriptionField.getText().toString();
         pinController.createPin(0, 0, categorySelected, descriptionText);
-        //this.finish()
+        Toast.makeText(PinCreator.this, "Pin Submitted!", Toast.LENGTH_SHORT).show();
+        this.finish();
     }
 
     public void cancelPinCreation(View view)
     {
-        //TODO add Toast
+        Toast.makeText(PinCreator.this, "Pin Creation Cancelled!", Toast.LENGTH_SHORT).show();
         this.finish();
     }
 }
