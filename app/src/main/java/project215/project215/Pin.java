@@ -15,6 +15,16 @@ public class Pin
     private String description;
     private String state;
 
+    public Pin(int pinID, int userID, double latitude, double longitude, int timeCreated, String category, String description) {
+        PinID = pinID;
+        UserID = userID;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.timeCreated = timeCreated;
+        this.category = category;
+        this.description = description;
+    }
+
     public int getPinID() {
         return PinID;
     }
