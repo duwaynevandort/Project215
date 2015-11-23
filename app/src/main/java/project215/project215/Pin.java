@@ -13,6 +13,7 @@ public class Pin
     private int timeCreated; //in Unix time
     private String category;
     private String description;
+    private String state;
 
     public int getPinID() {
         return PinID;
@@ -64,6 +65,16 @@ public class Pin
 
     public int getUserID() {
         return UserID;
+    }
+
+    public String getState()
+    {
+        return state;
+    }
+
+    public void setState(String PinState)
+    {
+        state = PinState;
     }
 
     public void setUserID(int userID) {
