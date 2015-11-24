@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Test extends Activity {
@@ -39,6 +40,7 @@ public class Test extends Activity {
         final MapFragment mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.map);
         final MapWrapperLayout mapWrapperLayout = (MapWrapperLayout)findViewById(R.id.map_relative_layout);
         final GoogleMap map = mapFragment.getMap();
+        final SuperController sControl = new SuperController();
 
         // MapWrapperLayout initialization
         // 39 - default marker height
@@ -117,21 +119,34 @@ public class Test extends Activity {
         });
 
         // Let's add a couple of markers
+        // TODO: Fix Error
+try {
+    List<Pin> sPins = sControl.getPins(30, 39, -90, -100);
 
+    for (Pin sPin : sPins) {
         map.addMarker(new MarkerOptions()
-                .title("Party in Prague")
-                .snippet("Bitches be trippin'")
-                .position(new LatLng(50.08, 14.43)));
+                .title(sPin.getCategory())
+                .snippet(sPin.getDescription())
+                .position(new LatLng(sPin.getLatitude(), sPin.getLongitude())));
+    }
+} catch(Exception e) {
+            Log.i("pins", e.toString());
+        }
 
-        map.addMarker(new MarkerOptions()
-                .title("Paris")
-                .snippet("France")
-                .position(new LatLng(48.86,2.33)));
-
-        map.addMarker(new MarkerOptions()
-                .title("London")
-                .snippet("United Kingdom")
-                .position(new LatLng(51.51,-0.1)));
+//        map.addMarker(new MarkerOptions()
+//                .title("Party in Prague")
+//                .snippet("Bitches be trippin'")
+//                .position(new LatLng(50.08, 14.43)));
+//
+//        map.addMarker(new MarkerOptions()
+//                .title("Paris")
+//                .snippet("France")
+//                .position(new LatLng(48.86,2.33)));
+//
+//        map.addMarker(new MarkerOptions()
+//                .title("London")
+//                .snippet("United Kingdom")
+//                .position(new LatLng(51.51,-0.1)));
     }
 
     public static int getPixelsFromDp(Context context, float dp) {

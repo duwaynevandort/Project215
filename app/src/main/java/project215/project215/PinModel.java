@@ -28,6 +28,7 @@ public class PinModel extends Model
 
     public static List<Pin> getPinByBounds(double lat1, double lng1, double lat2, double lng2)
     {
+
         JSONObject json = new JSONObject();
         URL url;
         HttpURLConnection urlConnection;
@@ -36,7 +37,7 @@ public class PinModel extends Model
 
         List<Pin> pins = new ArrayList<Pin>();
 
-        try{
+        try {
             String http = SERVER_URL + "/pins/getpins" +
                     "/" + lat1 +
                     "/" + lng1 +
@@ -97,8 +98,10 @@ public class PinModel extends Model
         }
 
 
+
         // TODO: 11/16/2015 test this
         return pins;
+
     }
 
     public static boolean createPinRecord(double lat, double lng, String cat, String desc, int uID)
