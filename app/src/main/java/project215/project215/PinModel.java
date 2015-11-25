@@ -1,5 +1,7 @@
 package project215.project215;
 
+import android.util.Log;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -77,6 +79,7 @@ public class PinModel extends Model
                 for (Object p : jPinArray)
                 {
                     JSONObject jPin = (JSONObject) p;
+                    Log.i("PinModel", jPin.toString());
                     pins.add(new Pin(jPin));
                 }
 
