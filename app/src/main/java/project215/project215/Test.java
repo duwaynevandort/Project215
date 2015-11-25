@@ -1,18 +1,8 @@
 package project215.project215;
 
-import project215.project215.MapWrapperLayout;
-import project215.project215.OnInfoWindowElemTouchListener;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import android.content.res.Resources;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -21,9 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashMap;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.List;
-import java.util.Map;
 
 public class Test extends Activity {
     private ViewGroup infoWindow;
@@ -119,24 +114,27 @@ public class Test extends Activity {
         });
 
         // Let's add a couple of markers
-        // TODO: Fix Error
-try {
-    List<Pin> sPins = sControl.getPins(30, 39, -90, -100);
 
-    for (Pin sPin : sPins) {
-        map.addMarker(new MarkerOptions()
-                .title(sPin.getCategory())
-                .snippet(sPin.getDescription())
-                .position(new LatLng(sPin.getLatitude(), sPin.getLongitude())));
-    }
-} catch(Exception e) {
-            Log.i("pins", e.toString());
+    try {
+        //I'm not sober, This might be unneeded....
+        sControl.getPinList();
+        //pretty sure this is all you need....
+        List<Pin> sPins = sControl.getPinList();
+
+        for (Pin sPin : sPins) {
+            map.addMarker(new MarkerOptions()
+                 .title(sPin.getCategory())
+                 .snippet(sPin.getDescription())
+                 .position(new LatLng(sPin.getLatitude(), sPin.getLongitude())));
         }
+    } catch(Exception e) {
+            Log.i("pins", e.toString());
+    }
 
-//        map.addMarker(new MarkerOptions()
-//                .title("Party in Prague")
-//                .snippet("Bitches be trippin'")
-//                .position(new LatLng(50.08, 14.43)));
+        map.addMarker(new MarkerOptions()
+                .title("Party in Prague")
+                .snippet("Bitches be trippin'")
+                .position(new LatLng(50.08, 14.43)));
 //
 //        map.addMarker(new MarkerOptions()
 //                .title("Paris")

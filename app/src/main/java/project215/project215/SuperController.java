@@ -11,6 +11,7 @@ public class SuperController extends Application
 
     //private static ServerLogger logger;
     private static final String TAG = "Controller Log";
+    private List<Pin> pinList;
 
     /**************************************PIN CONTROLLER****************************************/
 
@@ -105,24 +106,36 @@ public class SuperController extends Application
 
     /****************************************MAP CONTROLLER***************************************/
 
-    public List<Pin> getPins(final double latitude1, final double longitude1, final double latitude2, final double longitude2)
+    public List<Pin> getPinList(){
+        // Replace the choords with around the user? Otherwise, who cares.
+        // Fuck it, lets just get them all. No reason not to.
+        this.getPins(-1000, -1000, 1000, 1000);
+        return pinList;
+    }
+
+    private void getPins(final double latitude1, final double longitude1, final double latitude2, final double longitude2)
     {
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    return PinModel.getPinByBounds(latitude1, longitude1, latitude2, longitude2);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+                    pinList = PinModel.getPinByBounds(latitude1, longitude1, latitude2, longitude2);
 
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
+
 }
+
+
