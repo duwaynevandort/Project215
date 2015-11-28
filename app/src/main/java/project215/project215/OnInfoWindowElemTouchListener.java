@@ -135,9 +135,7 @@ public abstract class OnInfoWindowElemTouchListener implements OnTouchListener {
     private final Runnable confirmClickRunnable = new Runnable() {
         //Do thing after press
         public void run() {
-            if (endPress()) {
-                onClickConfirmed(view, marker);
-            }
+            onClickConfirmed(view, marker);
         }
     };
 

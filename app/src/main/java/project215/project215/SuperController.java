@@ -72,8 +72,12 @@ public class SuperController extends Application
         }
     }
 
-    public void setReport(int pinID)
+    public void setReport(final int pinID)
     {
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
         if ( ReportModel.createReportRecord(userID, pinID) )
         {
             Log.d(TAG, "Report logged successfully");
@@ -81,6 +85,17 @@ public class SuperController extends Application
         else
         {
             Log.d(TAG, "Failed to log report");
+        }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -106,7 +121,7 @@ public class SuperController extends Application
 
     /****************************************MAP CONTROLLER***************************************/
 
-    public List<Pin> getPinList(){
+    public List<Pin> getPinList(final double latitude1, final double longitude1, final double latitude2, final double longitude2){
         // Replace the choords with around the user? Otherwise, who cares.
         // Fuck it, lets just get them all. No reason not to.
         this.getPins(-1000, -1000, 1000, 1000);
