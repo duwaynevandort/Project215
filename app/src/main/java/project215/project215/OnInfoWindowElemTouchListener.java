@@ -19,6 +19,7 @@ public abstract class OnInfoWindowElemTouchListener implements OnTouchListener {
     private final int sdk = android.os.Build.VERSION.SDK_INT;
 
     private HashMap<Marker,Drawable> mHash = new HashMap<>();
+    private HashMap<Marker, Integer> sHash = new HashMap<>();
     private Marker marker;
     private Drawable currentDrawable;
     private boolean pressed = false;
@@ -31,7 +32,6 @@ public abstract class OnInfoWindowElemTouchListener implements OnTouchListener {
         this.bgDrawablePressed = bgDrawablePressed;
 
         //API background handling
-        int sdk = android.os.Build.VERSION.SDK_INT;
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
               view.setBackgroundDrawable(bgDrawableNormal);
         } else {
@@ -53,7 +53,6 @@ public abstract class OnInfoWindowElemTouchListener implements OnTouchListener {
             mHash.put(marker, currentDrawable);
         }
         //Check SDK version and use correct Background method to set Button Image
-        int sdk = android.os.Build.VERSION.SDK_INT;
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             view.setBackgroundDrawable(currentDrawable);
         } else {
@@ -80,7 +79,7 @@ public abstract class OnInfoWindowElemTouchListener implements OnTouchListener {
             // If the touch goes outside of the view's area
             // (like when moving finger out of the pressed button)
             // just release the press
-            endPress();
+            toggleButton();
         }
         return false;
     }
@@ -89,47 +88,21 @@ public abstract class OnInfoWindowElemTouchListener implements OnTouchListener {
         if (!pressed) {
             pressed = true;
             handler.removeCallbacks(confirmClickRunnable);
-            //Toggle Drawable to other state
+            //Toggle Drawable to other state and toggle state flag
             currentDrawable = (currentDrawable == bgDrawableNormal) ? bgDrawablePressed : bgDrawableNormal;
-
             //Check SDK version and use correct Background method
-            int sdk = android.os.Build.VERSION.SDK_INT;
             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 view.setBackgroundDrawable(currentDrawable);
             } else {
                 view.setBackground(currentDrawable);
             }
 
-            //Store current state of Drawable
+            //Store current Drawable
             mHash.put(marker, currentDrawable);
             pressed = false;
             if (marker != null)
                 marker.showInfoWindow();
         }
-    }
-
-    private boolean endPress() {
-        if (pressed) {
-            this.pressed = false;
-            handler.removeCallbacks(confirmClickRunnable);
-            // Check version and change background image to Pressed Button
-            currentDrawable = (currentDrawable == bgDrawableNormal) ? bgDrawablePressed : bgDrawableNormal;
-
-            //Check SDK version and use correct Background method
-            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                  view.setBackgroundDrawable(currentDrawable);
-            } else {
-                  view.setBackground(currentDrawable);
-            }
-
-            //Store Current state of Button
-            mHash.put(marker, currentDrawable);
-            if (marker != null)
-                marker.showInfoWindow();
-            return true;
-        }
-        else
-            return false;
     }
 
     private final Runnable confirmClickRunnable = new Runnable() {
@@ -143,4 +116,9 @@ public abstract class OnInfoWindowElemTouchListener implements OnTouchListener {
      * This is called after a successful click
      */
     protected abstract void onClickConfirmed(View v, Marker marker);
+
+    public boolean getPressed()
+    {
+        return (currentDrawable == bgDrawablePressed);
+    }
 }

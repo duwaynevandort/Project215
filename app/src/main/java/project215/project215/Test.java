@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,8 +37,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
     GoogleApiClient.OnConnectionFailedListener
 {
     private ViewGroup infoWindow;
-    private TextView infoTitle;
-    private TextView infoSnippet;
+    private TextView infoTitle, infoSnippet, infoScore;
     private Button HereButton, GoneButton, ReportButton;
     private OnInfoWindowElemTouchListener HereButtonListener, GoneButtonListener, ReportButtonListener;
     private GoogleApiClient mGoogleApiClient;
@@ -80,6 +80,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         this.infoWindow = (ViewGroup)getLayoutInflater().inflate(R.layout.infowindow, null);
         this.infoTitle = (TextView)infoWindow.findViewById(R.id.title);
         this.infoSnippet = (TextView)infoWindow.findViewById(R.id.snippet);
+        this.infoScore = (TextView)infoWindow.findViewById(R.id.score);
         this.HereButton = (Button)infoWindow.findViewById(R.id.Here);
         this.GoneButton = (Button)infoWindow.findViewById(R.id.Gone);
         this.ReportButton = (Button)infoWindow.findViewById(R.id.Report);
@@ -95,8 +96,17 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             protected void onClickConfirmed(View v, Marker marker) {
                 // Here we can perform some action triggered after clicking the button
                 //Todo: figure out how to toggle off Here Vote
-                sControl.setVote(markerMap.get(marker), true);
-                Toast.makeText(Test.this, "Vote Registered!", Toast.LENGTH_SHORT).show();
+                if(this.getPressed()) {
+                    sControl.setVote(markerMap.get(marker),true);
+                    Toast.makeText(Test.this, "Vote Registered!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public boolean onTouch(View vv, MotionEvent event) {
+                if(GoneButtonListener.getPressed())
+                    GoneButtonListener.onTouch(vv, event);
+                return super.onTouch(vv, event);
             }
         };
         this.HereButton.setOnTouchListener(HereButtonListener);
@@ -108,9 +118,17 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
                 // Here we can perform some action triggered after clicking the button
-                //Todo: figure out how to toggle off Gone Vote
-                sControl.setVote(markerMap.get(marker),false);
-                Toast.makeText(Test.this, "Vote Registered!", Toast.LENGTH_SHORT).show();
+                if(this.getPressed()) {
+                  sControl.setVote(markerMap.get(marker),false);
+                  Toast.makeText(Test.this, "Vote Registered!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public boolean onTouch(View vv, MotionEvent event) {
+                if(HereButtonListener.getPressed())
+                    HereButtonListener.onTouch(vv, event);
+                return super.onTouch(vv, event);
             }
         };
         this.GoneButton.setOnTouchListener(GoneButtonListener);
@@ -125,6 +143,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
                 //Todo: figure out how to toggle off report
                 sControl.setReport(markerMap.get(marker));
                 Toast.makeText(Test.this, "Report Registered!", Toast.LENGTH_SHORT).show();
+                marker.remove();
             }
         };
         this.ReportButton.setOnTouchListener(ReportButtonListener);
@@ -142,6 +161,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
                 // Setting up the infoWindow with current's marker info
                 infoTitle.setText(marker.getTitle());
                 infoSnippet.setText(marker.getSnippet());
+                infoScore.setText("points");
                 HereButtonListener.setMarker(marker);
                 GoneButtonListener.setMarker(marker);
                 ReportButtonListener.setMarker(marker);
@@ -211,6 +231,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
 
         Log.i(TAG, location.toString());
         Log.i(TAG, "handling new location");
+
         //turn location into a latlng
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
@@ -225,10 +246,6 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
 
             //Display the Pins
             for (Pin sPin : sPins) {
-//                map.addMarker(new MarkerOptions()
-//                        .title(sPin.getCategory())
-//                        .snippet(sPin.getDescription())
-//                        .position(new LatLng(sPin.getLatitude(), sPin.getLongitude())));
                 markerMap.put(map.addMarker(new MarkerOptions()
                         .title(sPin.getCategory())
                         .snippet(sPin.getDescription())
