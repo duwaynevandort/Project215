@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">Project 215</string>
+    <string name="app_name">jUST iN!</string>
     <string name="title_activity_map_test">Map</string>
+    <string name="title_activity_pincreator_test">PinCreatorTest</string>
+    <string name="title_activity_map_screen_test">Map Screen Test</string>
+    <string name="title_activity_login_screen_test">Login Screen Test</string>
 </resources>

@@ -5,18 +5,32 @@ import android.util.Log;
 
 import java.util.List;
 
+/*
+*   Author: Kenny Cook
+*
+*   This class acts as a mediator between the views (activities)
+*       and the models. It is accessible by any activity in the
+*       application
+*/
+
 public class SuperController extends Application
 {
-    public static int userID = 47;
+    //set to negative after testing?
+    private static int userID = 47;
 
-    //private static ServerLogger logger;
+    private static boolean pinSubmitted;
+    private static boolean voteSubmitted;
+    private static boolean reportSubmitted;
+    private static boolean userCreated;
+    private static boolean validUser;
+    private static List<Pin> pinList;
+
     private static final String TAG = "Controller Log";
-    private List<Pin> pinList;
 
     /**************************************PIN CONTROLLER****************************************/
 
-    public static void createPin(final double latitude, final double longitude, final String category, final String description) throws InterruptedException {
-
+    public static boolean createPin(final double latitude, final double longitude, final String category, final String description)
+    {
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
@@ -24,10 +38,12 @@ public class SuperController extends Application
                     if ( PinModel.createPinRecord(latitude, longitude, category, description, userID) )
                     {
                         Log.d(TAG, "Pin created successfully");
+                        pinSubmitted = true;
                     }
                     else
                     {
                         Log.d(TAG, "Pin creation failed");
+                        pinSubmitted = false;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -41,6 +57,8 @@ public class SuperController extends Application
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        return pinSubmitted;
     }
 
     public void setVote(final int pinID, final boolean isHere)
@@ -55,10 +73,10 @@ public class SuperController extends Application
                         Log.d(TAG, "Failed to log vote");
                     }
                 } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
-            });
+            }
+        });
 
         thread.start();
         try {
@@ -74,14 +92,14 @@ public class SuperController extends Application
             @Override
             public void run() {
                 try {
-        if ( ReportModel.createReportRecord(userID, pinID) )
-        {
-            Log.d(TAG, "Report logged successfully");
-        }
-        else
-        {
-            Log.d(TAG, "Failed to log report");
-        }
+                    if ( ReportModel.createReportRecord(userID, pinID) )
+                    {
+                        Log.d(TAG, "Report logged successfully");
+                    }
+                    else
+                    {
+                        Log.d(TAG, "Failed to log report");
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -97,30 +115,89 @@ public class SuperController extends Application
 
     /**************************************USER CONTROLLER****************************************/
 
-    //userID = return values for both?
-
-    public boolean checkUser(String userEmail, String userPassword)
+    public static boolean checkUser(final String userEmail, String userPassword)
     {
-        String hashedPassword = "butts";
-        //Bcrypt stuff
+        final String hashedPassword = userPassword;
 
-        return UserModel.checkUser(userEmail, hashedPassword);
+        //TODO implement initial encryption for password string
+
+        //TODO have Adam change getUserID to bool type, implement, test
+
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    if ( UserModel.checkUser(userEmail, hashedPassword) )
+                    {
+                        validUser = true;
+                        Log.d(TAG, "User verification success!" + validUser);
+                    }
+                    else
+                    {
+                        validUser = false;
+                        Log.d(TAG, "User verification failed!" + validUser);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "validUser = " + validUser);
+        return validUser;
     }
 
-    public boolean createUser(String userEmail, String userPassword)
+    public static boolean createUser(final String userEmail, String userPassword)
     {
-        String hashedPassword = "butts";
-        //Bcrypt stuff
+        final String hashedPassword = userPassword;
 
-        return UserModel.createUser(userEmail, hashedPassword);
+        //TODO implement initial encryption for password string
+
+        //TODO have Adam change getUserID to bool type, implement, test
+
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    if (UserModel.createUser(userEmail, hashedPassword) )
+                    {
+                        userCreated = true;
+                        Log.d(TAG, "User created successfully" + userCreated);
+                    }
+                    else
+                    {
+                        userCreated = false;
+                        Log.d(TAG, "User creation failed" + userCreated);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "userCreated = " + userCreated);
+        return userCreated;
     }
 
     /****************************************MAP CONTROLLER***************************************/
 
     public List<Pin> getPinList(final double latitude1, final double longitude1, final double latitude2, final double longitude2){
-        // Replace the choords with around the user? Otherwise, who cares.
-        // Fuck it, lets just get them all. No reason not to.
-        this.getPins(-1000, -1000, 1000, 1000);
+        //get Pins within bounds
+        this.getPins(latitude1, longitude1, latitude2, longitude2);
         return pinList;
     }
 
@@ -146,7 +223,4 @@ public class SuperController extends Application
         }
 
     }
-
 }
-
-

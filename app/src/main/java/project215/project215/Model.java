@@ -8,5 +8,4 @@ import android.os.AsyncTask;
 public abstract class Model
 {
     final static String SERVER_URL = "http://162.243.52.70:7000";
-
 }
