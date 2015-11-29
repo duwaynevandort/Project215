@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -134,8 +136,8 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         this.GoneButton.setOnTouchListener(GoneButtonListener);
 
         this.ReportButtonListener = new OnInfoWindowElemTouchListener(ReportButton,
-                ContextCompat.getDrawable(this, R.drawable.),
-                ContextCompat.getDrawable(this, R.drawable.basic_report_button))
+                ContextCompat.getDrawable(this, R.drawable.report_button),
+                ContextCompat.getDrawable(this, R.drawable.report_click))
         {
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
@@ -249,17 +251,56 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             for (Pin sPin : sPins) {
                 MarkerOptions m = new MarkerOptions();
                 BitmapDescriptor pinCategory;
+                int pinBackground= R.drawable.default_background;
 
                 switch(sPin.getCategory()) {
-                    case "Events": pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
-                    case "Wait Time": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time_config); break;
-                    case "Parking": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.parking); break;
-                    case "Free Stuff": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.free_stuff); break;
-                    case "Study": pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
-                    case "Construction": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.new_construction); break;
-                    case "Class": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.class_pin); break;
-                    default: pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
+                    case "Events": {
+                        pinCategory = BitmapDescriptorFactory.defaultMarker();
+                        pinBackground = R.drawable.default_background;
+                        break;
+                    }
+                    case "Wait Time": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time_pin);
+                        pinBackground = R.drawable.wait_background;
+                        break;
+                    }
+                    case "Parking": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.parking_pin);
+                        pinBackground = R.drawable.parking_background;
+                        break;
+                    }
+                    case "Free Stuff": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.free_stuff_pin);
+                        pinBackground = R.drawable.freestuff_background;
+                        break;
+                    }
+                    case "Study": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.study_pin);
+                        pinBackground = R.drawable.study_background;
+
+                        break;
+                    }
+                    case "Construction": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.construction_pin);
+                        pinBackground = R.drawable.construction_background;
+                        break;
+                    }
+                    case "Class": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.class_pin);
+                        pinBackground = R.drawable.class_background;
+                        break;
+                    }
+                    default: {
+                        pinCategory = BitmapDescriptorFactory.defaultMarker();
+                        pinBackground = R.drawable.default_background;
+                        break;
+                    }
                 }
+                final int sdk = android.os.Build.VERSION.SDK_INT;
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN)
+                    this.infoWindow.setBackgroundDrawable(ContextCompat.getDrawable(this, pinBackground));
+                else
+                    this.infoWindow.setBackground(ContextCompat.getDrawable(this, pinBackground));
 
                 markerMap.put(map.addMarker(new MarkerOptions()
                         .title(sPin.getCategory())
