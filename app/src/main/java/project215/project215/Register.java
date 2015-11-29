@@ -37,14 +37,14 @@ public class Register extends AppCompatActivity {
             if ( SuperController.createUser(emailEntered, passwordEntered) )
             {
                 Toast.makeText(Register.this, "Registration successgul! Please check" +
-                        "your email to confirm your new account!", Toast.LENGTH_SHORT).show();
+                        "your email to confirm your new account!", Toast.LENGTH_LONG).show();
                 Intent login = new Intent(getApplication(), Login.class);
                 startActivity(login);
             }
             else
             {
                 Toast.makeText(Register.this, "Registration failed. If you already have a jUST iN!" +
-                        "account, please sign in at the login screen.", Toast.LENGTH_SHORT).show();
+                        "account, please sign in at the login screen.", Toast.LENGTH_LONG).show();
                 emailField.setText("");
                 passwordField.setText("");
                 confirmedPasswordField.setText("");
