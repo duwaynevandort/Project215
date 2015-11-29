@@ -1,7 +1,7 @@
 package project215.project215;
 
 import android.app.Application;
-import android.util.Log;
+//import android.util.Log;
 
 import java.util.List;
 
@@ -126,12 +126,12 @@ public class SuperController extends Application
                     if ( UserModel.checkUser(userEmail, userPassword) )
                     {
                         validUser = true;
-                        Log.d(TAG, "User verification success! " + validUser + " " + userID);
+                        Log.d(TAG, "User verification success!");
                     }
                     else
                     {
                         validUser = false;
-                        Log.d(TAG, "User verification failed! " + validUser);
+                        Log.d(TAG, "User verification failed!");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -146,7 +146,6 @@ public class SuperController extends Application
             e.printStackTrace();
         }
 
-        Log.d(TAG, "validUser = " + validUser);
         return validUser;
     }
 
@@ -159,12 +158,12 @@ public class SuperController extends Application
                     if ( UserModel.createUser(userEmail, userPassword) )
                     {
                         userCreated = true;
-                        Log.d(TAG, "User created successfully" + userCreated);
+                        Log.d(TAG, "User created successfully");
                     }
                     else
                     {
                         userCreated = false;
-                        Log.d(TAG, "User creation failed" + userCreated);
+                        Log.d(TAG, "User creation failed");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -179,7 +178,6 @@ public class SuperController extends Application
             e.printStackTrace();
         }
 
-        Log.d(TAG, "userCreated = " + userCreated);
         return userCreated;
     }
 
