@@ -36,10 +36,11 @@ public class Register extends AppCompatActivity {
         {
             if ( SuperController.createUser(emailEntered, passwordEntered) )
             {
-                Toast.makeText(Register.this, "Registration successgul! Please check" +
+                Toast.makeText(Register.this, "Registration successful! Please check" +
                         "your email to confirm your new account!", Toast.LENGTH_LONG).show();
                 Intent login = new Intent(getApplication(), Login.class);
                 startActivity(login);
+                //this.finish();
             }
             else
             {
@@ -62,5 +63,6 @@ public class Register extends AppCompatActivity {
     {
         Intent login = new Intent(getApplication(), Login.class);
         startActivity(login);
+        //this.finish();
     }
 }

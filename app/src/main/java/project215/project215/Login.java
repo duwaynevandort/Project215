@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
         {
             Intent loginSuccess = new Intent(this, Test.class);
             startActivity(loginSuccess);
+            //this.finish()
         }
         else
         {
@@ -46,5 +47,6 @@ public class Login extends AppCompatActivity {
     {
         Intent register = new Intent(this, Register.class);
         startActivity(register);
+        //this.finish();
     }
 }

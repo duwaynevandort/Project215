@@ -76,7 +76,8 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
         //My attempt at getting location
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        provider = mLocationManager.getBestProvider(criteria, false);
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        provider = mLocationManager.getBestProvider(criteria, true);
         Location myLocation = mLocationManager.getLastKnownLocation(provider);
 
         if (myLocation != null)
