@@ -30,8 +30,6 @@ public class Register extends AppCompatActivity {
         String passwordEntered = passwordField.getText().toString();
         String confirmedPasswordEntered = confirmedPasswordField.getText().toString();
 
-        //TODO check if user is already registered
-
         if (passwordEntered.equals(confirmedPasswordEntered))
         {
             if ( SuperController.createUser(emailEntered, passwordEntered) )

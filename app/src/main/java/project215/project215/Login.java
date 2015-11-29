@@ -26,10 +26,10 @@ public class Login extends AppCompatActivity {
         String emailEntered = emailField.getText().toString();
         String passwordEntered = passwordField.getText().toString();
 
-        //TODO if login failed, handle the failure appropriately
-
         if( SuperController.checkUser(emailEntered, passwordEntered) )
         {
+            //CHECK USER ID
+            Toast.makeText(Login.this, SuperController.getUserID(), Toast.LENGTH_SHORT).show();
             Intent loginSuccess = new Intent(this, Test.class);
             startActivity(loginSuccess);
             //this.finish()

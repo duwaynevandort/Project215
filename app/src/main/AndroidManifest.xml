@@ -34,7 +34,7 @@
 
         <activity
             android:name=".Login"
-            android:label="Test">
+            android:label="jUST iN!">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

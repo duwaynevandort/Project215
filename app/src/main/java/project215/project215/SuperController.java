@@ -1,7 +1,7 @@
 package project215.project215;
 
 import android.app.Application;
-//import android.util.Log;
+import android.util.Log;
 
 import java.util.List;
 
@@ -66,9 +66,12 @@ public class SuperController extends Application
             @Override
             public void run() {
                 try {
-                    if (VoteModel.createVoteRecord(userID, pinID, isHere)) {
+                    if (VoteModel.createVoteRecord(userID, pinID, isHere))
+                    {
                         Log.d(TAG, "Vote logged successfully");
-                    } else {
+                    }
+                    else
+                    {
                         Log.d(TAG, "Failed to log vote");
                     }
                 } catch (Exception e) {
@@ -123,12 +126,12 @@ public class SuperController extends Application
                     if ( UserModel.checkUser(userEmail, userPassword) )
                     {
                         validUser = true;
-                        Log.d(TAG, "User verification success!" + validUser);
+                        Log.d(TAG, "User verification success! " + validUser + " " + userID);
                     }
                     else
                     {
                         validUser = false;
-                        Log.d(TAG, "User verification failed!" + validUser);
+                        Log.d(TAG, "User verification failed! " + validUser);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -212,7 +215,7 @@ public class SuperController extends Application
 
     }
 
-    public int getUserID() { return userID; }
+    public static int getUserID() { return userID; }
 
-    public void setUserID(int UID) { userID = UID; }
+    public static void setUserID(int UID) { userID = UID; }
 }
