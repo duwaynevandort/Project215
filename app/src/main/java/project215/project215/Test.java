@@ -2,13 +2,12 @@ package project215.project215;
 
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,7 +30,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.HashMap;
 import java.util.List;
@@ -252,9 +249,10 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             for (Pin sPin : sPins) {
                 MarkerOptions m = new MarkerOptions();
                 BitmapDescriptor pinCategory;
+
                 switch(sPin.getCategory()) {
                     case "Events": pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
-                    case "Wait Time": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time); break;
+                    case "Wait Time": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time_config); break;
                     case "Parking": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.parking); break;
                     case "Free Stuff": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.free_stuff); break;
                     case "Study": pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
@@ -262,6 +260,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
                     case "Class": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.class_pin); break;
                     default: pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
                 }
+
                 markerMap.put(map.addMarker(new MarkerOptions()
                         .title(sPin.getCategory())
                         .icon(pinCategory)
@@ -283,4 +282,6 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             Intent intent = new Intent(this, PinCreator.class);
             startActivity(intent);
         }
+
+
     }
