@@ -46,7 +46,6 @@ public class Register extends AppCompatActivity {
             {
                 Toast.makeText(Register.this, "Registration failed. If you already have a jUST iN!" +
                         "account, please sign in at the login screen.", Toast.LENGTH_LONG).show();
-                emailField.setText("");
                 passwordField.setText("");
                 confirmedPasswordField.setText("");
             }

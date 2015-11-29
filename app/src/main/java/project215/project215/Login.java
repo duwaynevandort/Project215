@@ -38,7 +38,6 @@ public class Login extends AppCompatActivity {
         {
             Toast.makeText(Login.this, "Login failed. If you just registered, please check your" +
                     "email for an activation link.", Toast.LENGTH_LONG).show();
-            emailField.setText("");
             passwordField.setText("");
         }
     }
