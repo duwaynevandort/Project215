@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
  * Created by Adam on 11/15/2015.
  * Just holds Pin data
  */
+
 public class Pin
 {
     private int PinID;
@@ -17,8 +18,7 @@ public class Pin
     private String description;
     private String state;
 
-    public Pin(int pinID, int userID, double latitude, double longitude, int timeCreated, String category, String description) {
-        PinID = pinID;
+    public Pin(int userID, double latitude, double longitude, int timeCreated, String category, String description) {
         UserID = userID;
         this.latitude = latitude;
         this.longitude = longitude;

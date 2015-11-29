@@ -25,7 +25,7 @@ public class PinModel extends Model
     public static Pin getPinByID(int id)
     {
         // TODO: 11/15/2015
-        return new Pin(0, 0, 0, 0, 0, "foo", "bar");
+        return new Pin(0, 0, 0, 0, "foo", "bar");
     }
 
     public static List<Pin> getPinByBounds(double lat1, double lng1, double lat2, double lng2)

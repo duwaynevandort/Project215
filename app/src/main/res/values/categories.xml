@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <string-array name="categories">
+            <item>Events</item>
+            <item>Wait Time</item>
+            <item>Parking</item>
+            <item>Free Stuff</item>
+            <item>Study</item>
+            <item>Construction</item>
+            <item>Class</item>
+        </string-array>
+    </resources>

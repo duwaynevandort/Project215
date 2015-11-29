@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    tools:context=".PinCreator">
 
     <TextView
         android:layout_width="match_parent"
@@ -40,7 +41,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#fcf5ae"
-        android:textAlignment="center"
+        android:textAlignment="gravity"
         android:layout_marginTop="20dp"/>
 
     <Button
@@ -53,7 +54,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="60dp"
         android:layout_marginStart="60dp"
-        android:background="#ff5757" />
+        android:background="#ff5757"
+        android:onClick="submitPinCreation"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -66,6 +68,6 @@
         android:layout_marginRight="60dp"
         android:layout_marginEnd="60dp"
         android:background="#94fc6e"
-        android:enabled="false"/>
+        android:onClick="cancelPinCreation"/>
 
 </RelativeLayout>
