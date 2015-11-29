@@ -15,8 +15,7 @@ import java.util.List;
 
 public class SuperController extends Application
 {
-    //set to negative after testing?
-    private static int userID = 112;
+    private static int userID = -1;
 
     private static boolean pinSubmitted;
     private static boolean voteSubmitted;
@@ -119,10 +118,6 @@ public class SuperController extends Application
     {
         final String hashedPassword = userPassword;
 
-        //TODO implement initial encryption for password string
-
-        //TODO have Adam change getUserID to bool type, implement, test
-
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
@@ -157,10 +152,6 @@ public class SuperController extends Application
     public static boolean createUser(final String userEmail, String userPassword)
     {
         final String hashedPassword = userPassword;
-
-        //TODO implement initial encryption for password string
-
-        //TODO have Adam change getUserID to bool type, implement, test
 
         Thread thread = new Thread(new Runnable(){
             @Override
@@ -224,4 +215,8 @@ public class SuperController extends Application
         }
 
     }
+
+    public int getUserID() { return userID; }
+
+    public void setUserID(int UID) { userID = UID; }
 }
