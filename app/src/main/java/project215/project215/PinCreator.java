@@ -80,7 +80,11 @@ public class PinCreator extends Activity
     public void submitPinCreation(View view)
     {
         descriptionText = descriptionField.getText().toString();
-        pinController.createPin(0, 0, categorySelected, descriptionText);
+        try{
+            pinController.createPin(0, 0, categorySelected, descriptionText);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         Toast.makeText(PinCreator.this, "Pin Submitted!", Toast.LENGTH_SHORT).show();
         this.finish();
     }

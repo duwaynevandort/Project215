@@ -1,6 +1,7 @@
 package project215.project215;
 
 import android.content.IntentSender;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -25,6 +26,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -95,7 +98,6 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
                 // Here we can perform some action triggered after clicking the button
-                //Todo: figure out how to toggle off Here Vote
                 if(this.getPressed()) {
                     sControl.setVote(markerMap.get(marker),true);
                     Toast.makeText(Test.this, "Vote Registered!", Toast.LENGTH_SHORT).show();
@@ -139,8 +141,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         {
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
-                // Here we can perform some action triggered after clicking the button
-                //Todo: figure out how to toggle off report
+                //Report the marker and remove it
                 sControl.setReport(markerMap.get(marker));
                 Toast.makeText(Test.this, "Report Registered!", Toast.LENGTH_SHORT).show();
                 marker.remove();
@@ -161,6 +162,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
                 // Setting up the infoWindow with current's marker info
                 infoTitle.setText(marker.getTitle());
                 infoSnippet.setText(marker.getSnippet());
+                // Place holder for the Pin's Score
                 infoScore.setText("points");
                 HereButtonListener.setMarker(marker);
                 GoneButtonListener.setMarker(marker);
@@ -176,6 +178,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
 
     @Override
     public void onConnected(Bundle bundle) {
+        // Get User Location
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.i(TAG, "location connected");
         if (location == null) {
@@ -227,8 +230,8 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         }
     }
 
+    // Get Pins and Render
     private void handleNewLocation(Location location) {
-
         Log.i(TAG, location.toString());
         Log.i(TAG, "handling new location");
 
@@ -246,10 +249,23 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
 
             //Display the Pins
             for (Pin sPin : sPins) {
+                MarkerOptions m = new MarkerOptions();
+                BitmapDescriptor pinCategory;
+                switch(sPin.getCategory()) {
+                    case "Events": pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
+                    case "Wait Time": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time); break;
+                    case "Parking": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.parking); break;
+                    case "Free Stuff": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.free_stuff); break;
+                    case "Study": pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
+                    case "Construction": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.new_construction); break;
+                    case "Class": pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.class_pin); break;
+                    default: pinCategory = BitmapDescriptorFactory.defaultMarker(); break;
+                }
                 markerMap.put(map.addMarker(new MarkerOptions()
                         .title(sPin.getCategory())
+                        .icon(pinCategory)
                         .snippet(sPin.getDescription())
-                        .position(new LatLng(sPin.getLatitude(), sPin.getLongitude()))),sPin.getPinID());
+                        .position(new LatLng(sPin.getLatitude(), sPin.getLongitude()))), sPin.getPinID());
             }
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng,(float)17.0));
         } catch(Exception e) {

@@ -15,17 +15,13 @@ public class SuperController extends Application
 
     /**************************************PIN CONTROLLER****************************************/
 
-    public static void createPin(double latitude, double longitude, String category, String description) throws InterruptedException {
-        final double lat = latitude;
-        final double lng = longitude;
-        final String cat = category;
-        final String desc = description;
+    public static void createPin(final double latitude, final double longitude, final String category, final String description) throws InterruptedException {
 
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    if ( PinModel.createPinRecord(lat, lng, cat, desc, userID) )
+                    if ( PinModel.createPinRecord(latitude, longitude, category, description, userID) )
                     {
                         Log.d(TAG, "Pin created successfully");
                     }
