@@ -1,5 +1,6 @@
 package project215.project215;
 
+import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
@@ -276,5 +277,10 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         @Override
         public void onLocationChanged(Location location) {
             handleNewLocation(location);
+        }
+
+        public void createPin(View view){
+            Intent intent = new Intent(this, PinCreator.class);
+            startActivity(intent);
         }
     }
