@@ -33,7 +33,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Login"
+            android:name=".Test"
             android:label="Test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,6 @@
         </activity>
 
         <activity android:name=".Register"></activity>
-        <activity android:name=".Test"></activity>
         <activity android:name=".MapViewActivity"></activity>
         <activity android:name=".PinCreator"></activity>
 

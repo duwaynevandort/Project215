@@ -70,7 +70,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(20 * 1000)        // 10 seconds, in milliseconds
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(10 * 1000); // 1 second, in milliseconds
 
 
@@ -250,46 +250,46 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             //Display the Pins
             for (Pin sPin : sPins) {
                 MarkerOptions m = new MarkerOptions();
-                BitmapDescriptor pinCategory;
+                BitmapDescriptor pinCategory = BitmapDescriptorFactory.defaultMarker();
                 int pinBackground= R.drawable.default_background;
 
                 switch(sPin.getCategory()) {
-                    case "Events": {
-                        pinCategory = BitmapDescriptorFactory.defaultMarker();
-                        pinBackground = R.drawable.default_background;
-                        break;
-                    }
-                    case "Wait Time": {
-                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time_pin);
-                        pinBackground = R.drawable.wait_background;
-                        break;
-                    }
-                    case "Parking": {
-                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.parking_pin);
-                        pinBackground = R.drawable.parking_background;
-                        break;
-                    }
-                    case "Free Stuff": {
-                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.free_stuff_pin);
-                        pinBackground = R.drawable.freestuff_background;
-                        break;
-                    }
-                    case "Study": {
-                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.study_pin);
-                        pinBackground = R.drawable.study_background;
-
-                        break;
-                    }
-                    case "Construction": {
-                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.construction_pin);
-                        pinBackground = R.drawable.construction_background;
-                        break;
-                    }
-                    case "Class": {
-                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.class_pin);
-                        pinBackground = R.drawable.class_background;
-                        break;
-                    }
+//                    case "Events": {
+//                        pinCategory = BitmapDescriptorFactory.defaultMarker();
+//                        pinBackground = R.drawable.default_background;
+//                        break;
+//                    }
+//                    case "Wait Time": {
+//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time_pin);
+//                        pinBackground = R.drawable.wait_background;
+//                        break;
+//                    }
+//                    case "Parking": {
+//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.parking_pin);
+//                        pinBackground = R.drawable.parking_background;
+//                        break;
+//                    }
+//                    case "Free Stuff": {
+//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.free_stuff_pin);
+//                        pinBackground = R.drawable.freestuff_background;
+//                        break;
+//                    }
+//                    case "Study": {
+//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.study_pin);
+//                        pinBackground = R.drawable.study_background;
+//
+//                        break;
+//                    }
+//                    case "Construction": {
+//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.construction_pin);
+//                        pinBackground = R.drawable.construction_background;
+//                        break;
+//                    }
+//                    case "Class": {
+//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.class_pin);
+//                        pinBackground = R.drawable.class_background;
+//                        break;
+//                    }
                     default: {
                         pinCategory = BitmapDescriptorFactory.defaultMarker();
                         pinBackground = R.drawable.default_background;

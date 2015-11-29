@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.MapFragment;
 
 /*
  * Author: Kenny
@@ -57,6 +58,7 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        Log.i("test", "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pin_create_screen);
 
@@ -68,22 +70,30 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
                 .addApi(LocationServices.API)
                 .build();
 
+        // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+                .setInterval(20 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(10 * 1000); // 1 second, in milliseconds
 
         //My attempt at getting location
-        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        provider = mLocationManager.getBestProvider(criteria, false);
-        Location myLocation = mLocationManager.getLastKnownLocation(provider);
-
-        if (myLocation != null)
-        {
-            Log.d(TAG, "Provider " + provider + " has been selected.");
-            onLocationChanged(myLocation);
-        }
+//        try {
+//            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//
+//            Log.i(TAG, "location connected");
+//            if (location == null) {
+//                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+//            } else {
+//                Log.i(TAG, "Attempting to handle new Location");
+//                myLatitude = (location.getLatitude());
+//                myLongitude = (location.getLongitude());
+//            }
+//            Log.i("lng", location.getLatitude() + "");
+//            Log.i("lat", location.getLongitude() + "");
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
         //End get location
 
         fillCategorySpinner();
@@ -92,8 +102,8 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
 
     @Override
     public void onLocationChanged(Location location) {
-        myLatitude = (location.getLatitude());
-        myLongitude = (location.getLongitude());
+        Log.i("test", "on Location Changed");
+        handleNewLocation(location);
     }
 
     //Populate drop down box via an ArrayAdapter filled
@@ -133,18 +143,25 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
     @Override
     public void onConnected(Bundle bundle)
     {
+
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.d(TAG, "Location connected");
-        if (location == null)
-        {
+        Log.i(TAG, "location connected");
+        if (location == null) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
-        else
-        {
-            Log.d(TAG, "Attempting to handle new Location");
+        else {
+            Log.i(TAG, "Attempting to handle new Location");
+            handleNewLocation(location);
         }
     }
 
+    public void handleNewLocation(Location location)
+    {
+        Log.i("lng", location.getLatitude()+"");
+        Log.i("lat", location.getLongitude()+"");
+        myLatitude = location.getLatitude();
+        myLongitude = location.getLongitude();
+    }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult)
     {
@@ -194,4 +211,21 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
         Toast.makeText(PinCreator.this, "Pin creation cancelled!", Toast.LENGTH_SHORT).show();
         this.finish();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            // Disconnect the API client and stop location updates when paused
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
 }
