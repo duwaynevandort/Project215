@@ -28,11 +28,9 @@ public class Login extends AppCompatActivity {
 
         if( SuperController.checkUser(emailEntered, passwordEntered) )
         {
-            //CHECK USER ID
-            Toast.makeText(Login.this, SuperController.getUserID(), Toast.LENGTH_SHORT).show();
             Intent loginSuccess = new Intent(this, Test.class);
             startActivity(loginSuccess);
-            //this.finish()
+            this.finish();
         }
         else
         {
@@ -46,6 +44,6 @@ public class Login extends AppCompatActivity {
     {
         Intent register = new Intent(this, Register.class);
         startActivity(register);
-        //this.finish();
+        this.finish();
     }
 }

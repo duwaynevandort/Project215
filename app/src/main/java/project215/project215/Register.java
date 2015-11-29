@@ -38,7 +38,7 @@ public class Register extends AppCompatActivity {
                         "your email to confirm your new account!", Toast.LENGTH_LONG).show();
                 Intent login = new Intent(getApplication(), Login.class);
                 startActivity(login);
-                //this.finish();
+                this.finish();
             }
             else
             {
@@ -60,6 +60,6 @@ public class Register extends AppCompatActivity {
     {
         Intent login = new Intent(getApplication(), Login.class);
         startActivity(login);
-        //this.finish();
+        this.finish();
     }
 }

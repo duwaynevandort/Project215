@@ -35,7 +35,7 @@ public class UserModel extends Model
         int userID = -1;
 
         try{
-            String http = SERVER_URL + "/" + username;
+            String http = SERVER_URL + "/user/getID/" + username + "/";
 
             url = new URL(http);
             urlConnection = (HttpURLConnection) url.openConnection();
