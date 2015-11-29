@@ -84,6 +84,7 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
             Log.d(TAG, "Provider " + provider + " has been selected.");
             onLocationChanged(myLocation);
         }
+        //End get location
 
         fillCategorySpinner();
         addListenerToCategorySpinner();
