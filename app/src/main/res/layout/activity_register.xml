@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:background="@drawable/samhouston"
+    tools:context="project215.project215.Register">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/register_screen_email_entry_field"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:hint="Email"
+        android:background="#fcf5ae" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/register_screen_password_entry_field"
+        android:hint="Password"
+        android:layout_below="@id/register_screen_email_entry_field"
+        android:layout_alignLeft="@+id/register_screen_email_entry_field"
+        android:layout_alignStart="@+id/register_screen_email_entry_field"
+        android:layout_marginTop="10dp"
+        android:background="#fcf5ae" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/register_screen_password_reentry_field"
+        android:hint="Re-Enter Password"
+        android:layout_below="@+id/register_screen_password_entry_field"
+        android:layout_alignLeft="@+id/register_screen_password_entry_field"
+        android:layout_alignStart="@+id/register_screen_password_entry_field"
+        android:layout_marginTop="10dp"
+        android:background="#fcf5ae" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/submit_registration_button"
+        android:layout_below="@+id/register_screen_password_reentry_field"
+        android:layout_alignRight="@+id/register_screen_password_reentry_field"
+        android:layout_alignEnd="@+id/register_screen_password_reentry_field"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        android:onClick="confirmRegistration"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/cancel_registration_button"
+        android:layout_below="@+id/register_screen_password_reentry_field"
+        android:layout_alignLeft="@+id/register_screen_password_reentry_field"
+        android:layout_alignStart="@+id/register_screen_password_reentry_field"
+        android:layout_marginTop="20dp"
+        android:onClick="cancelRegistration"/>
+</RelativeLayout>
