@@ -1,7 +1,7 @@
 package project215.project215;
 
 import android.app.Application;
-import android.util.Log;
+//import android.util.Log;
 
 import java.util.List;
 
@@ -114,15 +114,13 @@ public class SuperController extends Application
 
     /**************************************USER CONTROLLER****************************************/
 
-    public static boolean checkUser(final String userEmail, String userPassword)
+    public static boolean checkUser(final String userEmail, final String userPassword)
     {
-        final String hashedPassword = userPassword;
-
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    if ( UserModel.checkUser(userEmail, hashedPassword) )
+                    if ( UserModel.checkUser(userEmail, userPassword) )
                     {
                         validUser = true;
                         Log.d(TAG, "User verification success!" + validUser);
@@ -149,15 +147,13 @@ public class SuperController extends Application
         return validUser;
     }
 
-    public static boolean createUser(final String userEmail, String userPassword)
+    public static boolean createUser(final String userEmail, final String userPassword)
     {
-        final String hashedPassword = userPassword;
-
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    if (UserModel.createUser(userEmail, hashedPassword) )
+                    if ( UserModel.createUser(userEmail, userPassword) )
                     {
                         userCreated = true;
                         Log.d(TAG, "User created successfully" + userCreated);
