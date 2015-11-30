@@ -1,11 +1,8 @@
 package project215.project215;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.IntentSender;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +18,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.MapFragment;
 
 /*
  * Author: Kenny
@@ -33,8 +29,6 @@ import com.google.android.gms.maps.MapFragment;
  *      all input is then sent through the SuperController,
  *      to the PinModel, and then to the server
  */
-
-//TODO test if GoogleApiClient implement statements are needed
 
 public class PinCreator extends Activity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -51,9 +45,6 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
     private GoogleApiClient mGoogleApiClient;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest mLocationRequest;
-    private LocationManager mLocationManager;
-    private String provider;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -75,26 +66,6 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(1 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
-
-        //My attempt at getting location
-//        try {
-//            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-//
-//            Log.i(TAG, "location connected");
-//            if (location == null) {
-//                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-//            } else {
-//                Log.i(TAG, "Attempting to handle new Location");
-//                myLatitude = (location.getLatitude());
-//                myLongitude = (location.getLongitude());
-//            }
-//            Log.i("lng", location.getLatitude() + "");
-//            Log.i("lat", location.getLongitude() + "");
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        //End get location
 
         fillCategorySpinner();
         addListenerToCategorySpinner();
@@ -194,7 +165,6 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
         String descriptionText = descriptionField.getText().toString();
         Toast.makeText(PinCreator.this, "Submitting pin!", Toast.LENGTH_SHORT).show();
 
-        //TODO test toasts for success and failure
         if ( SuperController.createPin(myLatitude, myLongitude, categorySelected, descriptionText) )
         {
             Toast.makeText(PinCreator.this, "Pin created successfully!", Toast.LENGTH_SHORT).show();
@@ -227,5 +197,4 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
         super.onResume();
         mGoogleApiClient.connect();
     }
-
 }

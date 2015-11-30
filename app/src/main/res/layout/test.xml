@@ -24,6 +24,7 @@
         android:text="Create Pin"
         android:onClick="createPin"
         android:layout_gravity="start|bottom"
-        android:background="#58afed"/>
+        android:background="#58afed"
+        android:textColor="#ffffff"/>
 
 </FrameLayout>

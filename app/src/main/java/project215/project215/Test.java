@@ -91,8 +91,8 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         // Setting custom OnTouchListener which deals with the pressed state
         // so it shows up
         this.HereButtonListener = new OnInfoWindowElemTouchListener(HereButton,
-                ContextCompat.getDrawable(this, R.drawable.here_button),
-                ContextCompat.getDrawable(this, R.drawable.here_click))
+                ContextCompat.getDrawable(this, R.drawable.blue_here),
+                ContextCompat.getDrawable(this, R.drawable.blue_here_click))
         {
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
@@ -113,8 +113,8 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         this.HereButton.setOnTouchListener(HereButtonListener);
 
         this.GoneButtonListener = new OnInfoWindowElemTouchListener(GoneButton,
-                ContextCompat.getDrawable(this, R.drawable.gone_button),
-                ContextCompat.getDrawable(this, R.drawable.gone_click))
+                ContextCompat.getDrawable(this, R.drawable.blue_gone),
+                ContextCompat.getDrawable(this, R.drawable.blue_gone_click))
         {
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
@@ -135,8 +135,8 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         this.GoneButton.setOnTouchListener(GoneButtonListener);
 
         this.ReportButtonListener = new OnInfoWindowElemTouchListener(ReportButton,
-                ContextCompat.getDrawable(this, R.drawable.report_button),
-                ContextCompat.getDrawable(this, R.drawable.report_click))
+                ContextCompat.getDrawable(this, R.drawable.blue_report),
+                ContextCompat.getDrawable(this, R.drawable.blue_report_click))
         {
             @Override
             protected void onClickConfirmed(View v, Marker marker) {

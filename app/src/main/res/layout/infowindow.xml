@@ -62,24 +62,24 @@
 
         <Button
             android:id="@+id/Here"
-            android:layout_width="90dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
             android:background="@android:color/transparent"/>
         <Button
             android:id="@+id/Gone"
-            android:layout_width="90dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             android:background="@android:color/transparent"/>
         <Button
             android:id="@+id/Report"
-            android:layout_width="90dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             android:background="@android:color/transparent"/>
 
         </LinearLayout>

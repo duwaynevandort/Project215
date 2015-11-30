@@ -1,21 +1,22 @@
 package project215.project215;
 
 import android.app.Application;
-//import android.util.Log;
 
 import java.util.List;
+import java.security.MessageDigest;
 
 /*
 *   Author: Kenny Cook
 *
 *   This class acts as a mediator between the views (activities)
 *       and the models. It is accessible by any activity in the
-*       application
+*
+      * application
 */
 
 public class SuperController extends Application
 {
-    private static int userID = 115;
+    private static int userID = -1;
 
     private static boolean pinSubmitted;
     private static boolean userCreated;
@@ -115,13 +116,24 @@ public class SuperController extends Application
 
     /**************************************USER CONTROLLER****************************************/
 
-    public static boolean checkUser(final String userEmail, final String userPassword)
+    public static boolean checkUser(final String userEmail, String userPassword)
     {
+        String encryptedPass = "";
+
+        try{
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(userPassword.getBytes("UTF-8"));
+            encryptedPass = new String(messageDigest.digest());
+        }
+        catch(Exception e){}
+
+        final String passableEncryptedPass = encryptedPass;
+
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    if ( UserModel.checkUser(userEmail, userPassword) )
+                    if ( UserModel.checkUser(userEmail, passableEncryptedPass) )
                     {
                         validUser = true;
                         Log.d(TAG, "User verification success!");
@@ -147,13 +159,24 @@ public class SuperController extends Application
         return validUser;
     }
 
-    public static boolean createUser(final String userEmail, final String userPassword)
+    public static boolean createUser(final String userEmail, String userPassword)
     {
+        String encryptedPass = "";
+
+        try{
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(userPassword.getBytes("UTF-8"));
+            encryptedPass = new String(messageDigest.digest());
+        }
+        catch(Exception e){}
+
+        final String passableEncryptedPass = encryptedPass;
+
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    if ( UserModel.createUser(userEmail, userPassword) )
+                    if ( UserModel.createUser(userEmail, passableEncryptedPass) )
                     {
                         userCreated = true;
                         Log.d(TAG, "User created successfully");
