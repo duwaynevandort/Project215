@@ -85,7 +85,7 @@ public class PinModel extends Model
         return score;
     }
 
-    public static List<Pin> getPinByBounds(double lat1, double lng1, double lat2, double lng2)
+    public static List<Pin> getPinByBounds(double lat1, double lng1, double lat2, double lng2, int userID)
     {
 
         JSONObject json = new JSONObject();
@@ -101,7 +101,8 @@ public class PinModel extends Model
                     "/" + lat1 +
                     "/" + lng1 +
                     "/" + lat2 +
-                    "/" + lng2;
+                    "/" + lng2 +
+                    "/" + userID;
 
             url = new URL(http);
             urlConnection = (HttpURLConnection) url.openConnection();

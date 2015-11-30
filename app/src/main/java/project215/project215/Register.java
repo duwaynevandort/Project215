@@ -30,7 +30,7 @@ public class Register extends AppCompatActivity {
         String passwordEntered = passwordField.getText().toString();
         String confirmedPasswordEntered = confirmedPasswordField.getText().toString();
 
-        if (passwordEntered.equals(confirmedPasswordEntered))
+        if (passwordEntered.equals(confirmedPasswordEntered) && passwordEntered.length() > 5)
         {
             if ( SuperController.createUser(emailEntered, passwordEntered) )
             {
@@ -42,7 +42,7 @@ public class Register extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(Register.this, "Registration failed. If you already have a jUST iN!" +
+                Toast.makeText(Register.this, "Registration failed. If you already have a jUST iN! " +
                         "account, please sign in at the login screen.", Toast.LENGTH_LONG).show();
                 passwordField.setText("");
                 confirmedPasswordField.setText("");
@@ -50,7 +50,7 @@ public class Register extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(Register.this, "Your passwords need to match.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Register.this, "Your passwords need to match and be greater than 5 characters.", Toast.LENGTH_SHORT).show();
             passwordField.setText("");
             confirmedPasswordField.setText("");
         }

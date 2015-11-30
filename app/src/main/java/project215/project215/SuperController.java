@@ -217,7 +217,7 @@ public class SuperController extends Application
             @Override
             public void run() {
                 try {
-                    pinList = PinModel.getPinByBounds(latitude1, longitude1, latitude2, longitude2);
+                    pinList = PinModel.getPinByBounds(latitude1, longitude1, latitude2, longitude2, userID);
 
                 } catch (Exception e) {
                     e.printStackTrace();
