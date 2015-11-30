@@ -159,10 +159,9 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             @Override
             public View getInfoContents(Marker marker) {
                 // Setting up the infoWindow with current's marker info
-                infoTitle.setText(marker.getTitle());
+                infoTitle.setText("Category: "+marker.getTitle());
                 infoSnippet.setText(marker.getSnippet());
-                // Place holder for the Pin's Score
-                infoScore.setText(markerMap.get(marker).getPinScore());
+                infoScore.setText("Score: "+markerMap.get(marker).getPinScore());
                 HereButtonListener.setMarker(marker);
                 GoneButtonListener.setMarker(marker);
                 ReportButtonListener.setMarker(marker);

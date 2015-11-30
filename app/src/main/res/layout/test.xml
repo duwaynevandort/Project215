@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Create Pin"
         android:onClick="createPin"
-        android:layout_gravity="start|bottom" />
+        android:layout_gravity="start|bottom"
+        android:background="#58afed"/>
 
 </FrameLayout>
