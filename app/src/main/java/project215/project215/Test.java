@@ -48,7 +48,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
     private LocationRequest mLocationRequest;
     public static final String TAG = Test.class.getSimpleName();
     private GoogleMap map;
-    private HashMap<Marker, Integer> markerMap = new HashMap<Marker, Integer>();
+    private HashMap<Marker, Pin> markerMap = new HashMap<Marker, Pin>();
 
     //Super Controller initialization
     final SuperController sControl = new SuperController();
@@ -71,8 +71,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(10 * 1000); // 1 second, in milliseconds
-
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
         // MapWrapperLayout initialization
         // 39 - default marker height
@@ -99,7 +98,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             protected void onClickConfirmed(View v, Marker marker) {
                 // Here we can perform some action triggered after clicking the button
                 if(this.getPressed()) {
-                    sControl.setVote(markerMap.get(marker),true);
+                    sControl.setVote(markerMap.get(marker).getPinID(),true);
                     Toast.makeText(Test.this, "Vote Registered!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -121,7 +120,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             protected void onClickConfirmed(View v, Marker marker) {
                 // Here we can perform some action triggered after clicking the button
                 if(this.getPressed()) {
-                  sControl.setVote(markerMap.get(marker),false);
+                  sControl.setVote(markerMap.get(marker).getPinID(),false);
                   Toast.makeText(Test.this, "Vote Registered!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -142,9 +141,9 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
                 //Report the marker and remove it
-                sControl.setReport(markerMap.get(marker));
-                Toast.makeText(Test.this, "Report Registered!", Toast.LENGTH_SHORT).show();
+                sControl.setReport(markerMap.get(marker).getPinID());
                 marker.remove();
+                Toast.makeText(Test.this, "Report Registered!", Toast.LENGTH_SHORT).show();
             }
         };
         this.ReportButton.setOnTouchListener(ReportButtonListener);
@@ -163,7 +162,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
                 infoTitle.setText(marker.getTitle());
                 infoSnippet.setText(marker.getSnippet());
                 // Place holder for the Pin's Score
-                infoScore.setText("points");
+                infoScore.setText(markerMap.get(marker).getPinScore());
                 HereButtonListener.setMarker(marker);
                 GoneButtonListener.setMarker(marker);
                 ReportButtonListener.setMarker(marker);
@@ -179,6 +178,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
     @Override
     public void onConnected(Bundle bundle) {
         // Get User Location
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.i(TAG, "location connected");
         if (location == null) {
@@ -248,65 +248,51 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
             List<Pin> sPins = sControl.getPinList(currentLatitude-0.1, currentLongitude-0.1, currentLatitude+0.1, currentLongitude+0.1);
 
             //Display the Pins
+            map.clear();
             for (Pin sPin : sPins) {
                 MarkerOptions m = new MarkerOptions();
-                BitmapDescriptor pinCategory = BitmapDescriptorFactory.defaultMarker();
-                int pinBackground= R.drawable.default_background;
+                BitmapDescriptor pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.default_pin);
 
                 switch(sPin.getCategory()) {
-//                    case "Events": {
-//                        pinCategory = BitmapDescriptorFactory.defaultMarker();
-//                        pinBackground = R.drawable.default_background;
-//                        break;
-//                    }
-//                    case "Wait Time": {
-//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.wait_time_pin);
-//                        pinBackground = R.drawable.wait_background;
-//                        break;
-//                    }
-//                    case "Parking": {
-//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.parking_pin);
-//                        pinBackground = R.drawable.parking_background;
-//                        break;
-//                    }
-//                    case "Free Stuff": {
-//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.free_stuff_pin);
-//                        pinBackground = R.drawable.freestuff_background;
-//                        break;
-//                    }
-//                    case "Study": {
-//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.study_pin);
-//                        pinBackground = R.drawable.study_background;
-//
-//                        break;
-//                    }
-//                    case "Construction": {
-//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.construction_pin);
-//                        pinBackground = R.drawable.construction_background;
-//                        break;
-//                    }
-//                    case "Class": {
-//                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.class_pin);
-//                        pinBackground = R.drawable.class_background;
-//                        break;
-//                    }
+                    case "Events": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.default_pin);
+                        break;
+                    }
+                    case "Wait Time": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.small_wait_pin);
+                        break;
+                    }
+                    case "Parking": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.small_parking_pin);
+                        break;
+                    }
+                    case "Free Stuff": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.small_free_stuff_pin);
+                        break;
+                    }
+                    case "Study": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.small_study_pin);
+                        break;
+                    }
+                    case "Construction": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.small_construction_pin);
+                        break;
+                    }
+                    case "Class": {
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.super_small_class);
+                        break;
+                    }
                     default: {
-                        pinCategory = BitmapDescriptorFactory.defaultMarker();
-                        pinBackground = R.drawable.default_background;
+                        pinCategory = BitmapDescriptorFactory.fromResource(R.drawable.default_pin);
                         break;
                     }
                 }
-                final int sdk = android.os.Build.VERSION.SDK_INT;
-                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN)
-                    this.infoWindow.setBackgroundDrawable(ContextCompat.getDrawable(this, pinBackground));
-                else
-                    this.infoWindow.setBackground(ContextCompat.getDrawable(this, pinBackground));
 
                 markerMap.put(map.addMarker(new MarkerOptions()
                         .title(sPin.getCategory())
                         .icon(pinCategory)
                         .snippet(sPin.getDescription())
-                        .position(new LatLng(sPin.getLatitude(), sPin.getLongitude()))), sPin.getPinID());
+                        .position(new LatLng(sPin.getLatitude(), sPin.getLongitude()))), sPin);
             }
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng,(float)17.0));
         } catch(Exception e) {
@@ -316,7 +302,7 @@ public class Test extends FragmentActivity implements com.google.android.gms.loc
 
         @Override
         public void onLocationChanged(Location location) {
-            handleNewLocation(location);
+            //handleNewLocation(location);
         }
 
         public void createPin(View view){

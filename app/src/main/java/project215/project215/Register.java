@@ -30,22 +30,20 @@ public class Register extends AppCompatActivity {
         String passwordEntered = passwordField.getText().toString();
         String confirmedPasswordEntered = confirmedPasswordField.getText().toString();
 
-        //TODO check if user is already registered
-
         if (passwordEntered.equals(confirmedPasswordEntered))
         {
             if ( SuperController.createUser(emailEntered, passwordEntered) )
             {
-                Toast.makeText(Register.this, "Registration successgul! Please check" +
-                        "your email to confirm your new account!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Register.this, "Registration successful! Please check" +
+                        "your email to confirm your new account!", Toast.LENGTH_LONG).show();
                 Intent login = new Intent(getApplication(), Login.class);
                 startActivity(login);
+                this.finish();
             }
             else
             {
                 Toast.makeText(Register.this, "Registration failed. If you already have a jUST iN!" +
-                        "account, please sign in at the login screen.", Toast.LENGTH_SHORT).show();
-                emailField.setText("");
+                        "account, please sign in at the login screen.", Toast.LENGTH_LONG).show();
                 passwordField.setText("");
                 confirmedPasswordField.setText("");
             }
@@ -62,5 +60,6 @@ public class Register extends AppCompatActivity {
     {
         Intent login = new Intent(getApplication(), Login.class);
         startActivity(login);
+        this.finish();
     }
 }

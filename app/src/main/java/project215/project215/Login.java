@@ -26,18 +26,16 @@ public class Login extends AppCompatActivity {
         String emailEntered = emailField.getText().toString();
         String passwordEntered = passwordField.getText().toString();
 
-        //TODO if login failed, handle the failure appropriately
-
         if( SuperController.checkUser(emailEntered, passwordEntered) )
         {
             Intent loginSuccess = new Intent(this, Test.class);
             startActivity(loginSuccess);
+            this.finish();
         }
         else
         {
-            Toast.makeText(Login.this, "Login failed. If you just registered, please check your" +
-                    "email for an activation link.", Toast.LENGTH_SHORT).show();
-            emailField.setText("");
+            Toast.makeText(Login.this, "Login failed. If you just registered, please check your " +
+                    "email for an activation link.", Toast.LENGTH_LONG).show();
             passwordField.setText("");
         }
     }
@@ -46,5 +44,6 @@ public class Login extends AppCompatActivity {
     {
         Intent register = new Intent(this, Register.class);
         startActivity(register);
+        this.finish();
     }
 }

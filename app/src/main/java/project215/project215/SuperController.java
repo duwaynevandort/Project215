@@ -1,7 +1,7 @@
 package project215.project215;
 
 import android.app.Application;
-import android.util.Log;
+//import android.util.Log;
 
 import java.util.List;
 
@@ -15,12 +15,9 @@ import java.util.List;
 
 public class SuperController extends Application
 {
-    //set to negative after testing?
-    private static int userID = 47;
+    private static int userID = 115;
 
     private static boolean pinSubmitted;
-    private static boolean voteSubmitted;
-    private static boolean reportSubmitted;
     private static boolean userCreated;
     private static boolean validUser;
     private static List<Pin> pinList;
@@ -67,9 +64,12 @@ public class SuperController extends Application
             @Override
             public void run() {
                 try {
-                    if (VoteModel.createVoteRecord(userID, pinID, isHere)) {
+                    if (VoteModel.createVoteRecord(userID, pinID, isHere))
+                    {
                         Log.d(TAG, "Vote logged successfully");
-                    } else {
+                    }
+                    else
+                    {
                         Log.d(TAG, "Failed to log vote");
                     }
                 } catch (Exception e) {
@@ -115,27 +115,21 @@ public class SuperController extends Application
 
     /**************************************USER CONTROLLER****************************************/
 
-    public static boolean checkUser(final String userEmail, String userPassword)
+    public static boolean checkUser(final String userEmail, final String userPassword)
     {
-        final String hashedPassword = userPassword;
-
-        //TODO implement initial encryption for password string
-
-        //TODO have Adam change getUserID to bool type, implement, test
-
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    if ( UserModel.checkUser(userEmail, hashedPassword) )
+                    if ( UserModel.checkUser(userEmail, userPassword) )
                     {
                         validUser = true;
-                        Log.d(TAG, "User verification success!" + validUser);
+                        Log.d(TAG, "User verification success!");
                     }
                     else
                     {
                         validUser = false;
-                        Log.d(TAG, "User verification failed!" + validUser);
+                        Log.d(TAG, "User verification failed!");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -150,31 +144,24 @@ public class SuperController extends Application
             e.printStackTrace();
         }
 
-        Log.d(TAG, "validUser = " + validUser);
         return validUser;
     }
 
-    public static boolean createUser(final String userEmail, String userPassword)
+    public static boolean createUser(final String userEmail, final String userPassword)
     {
-        final String hashedPassword = userPassword;
-
-        //TODO implement initial encryption for password string
-
-        //TODO have Adam change getUserID to bool type, implement, test
-
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
-                    if (UserModel.createUser(userEmail, hashedPassword) )
+                    if ( UserModel.createUser(userEmail, userPassword) )
                     {
                         userCreated = true;
-                        Log.d(TAG, "User created successfully" + userCreated);
+                        Log.d(TAG, "User created successfully");
                     }
                     else
                     {
                         userCreated = false;
-                        Log.d(TAG, "User creation failed" + userCreated);
+                        Log.d(TAG, "User creation failed");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -189,17 +176,17 @@ public class SuperController extends Application
             e.printStackTrace();
         }
 
-        Log.d(TAG, "userCreated = " + userCreated);
         return userCreated;
     }
 
     /****************************************MAP CONTROLLER***************************************/
 
-    public List<Pin> getPinList(final double latitude1, final double longitude1, final double latitude2, final double longitude2){
-        //get Pins within bounds
+    public List<Pin> getPinList(final double latitude1, final double longitude1, final double latitude2, final double longitude2)
+    {
         this.getPins(latitude1, longitude1, latitude2, longitude2);
         return pinList;
     }
+
 
     private void getPins(final double latitude1, final double longitude1, final double latitude2, final double longitude2)
     {
@@ -223,4 +210,8 @@ public class SuperController extends Application
         }
 
     }
+
+    public static int getUserID() { return userID; }
+
+    public static void setUserID(int UID) { userID = UID; }
 }

@@ -24,7 +24,7 @@ public class UserModel extends Model
 {
     final static int SUCCESS_CODE = 200;
 
-    public static int getUserID(String username)
+    public static int setUserID(String username)
     {
         JSONObject json = new JSONObject();
         URL url;
@@ -35,7 +35,7 @@ public class UserModel extends Model
         int userID = -1;
 
         try{
-            String http = SERVER_URL + "/" + username;
+            String http = SERVER_URL + "/user/getID/" + username + "/";
 
             url = new URL(http);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -78,6 +78,7 @@ public class UserModel extends Model
             e.printStackTrace();
         }
 
+        SuperController.setUserID(userID);
         return userID;
     }
 
@@ -186,6 +187,7 @@ public class UserModel extends Model
         }
 
         // TODO: 11/16/2015 test this
+        setUserID(username);
         return success;
     }
 }

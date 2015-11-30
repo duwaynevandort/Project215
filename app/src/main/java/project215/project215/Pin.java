@@ -14,6 +14,7 @@ public class Pin
     private double latitude; //where the Pin was posted from
     private double longitude; //where the Pin was posted from
     private int timeCreated; //in Unix time; DON'T USE THIS
+    private int pinScore;
     private String category;
     private String description;
     private String state;
@@ -36,6 +37,7 @@ public class Pin
         longitude = (Double) jPin.get("Longitude");
         timeCreated = 0; //don't need this app side
         category = (String) jPin.get("Category");
+        pinScore = ((Long) jPin.get("Score")).intValue();
         description = (String) jPin.get("Description");
         if(description == null)
             description = "";
@@ -119,5 +121,13 @@ public class Pin
 
     public void setUserID(int userID) {
         UserID = userID;
+    }
+
+    public int getPinScore() {
+        return pinScore;
+    }
+
+    public void setPinScore(int pinScore) {
+        pinScore = pinScore;
     }
 }

@@ -28,6 +28,63 @@ public class PinModel extends Model
         return new Pin(0, 0, 0, 0, "foo", "bar");
     }
 
+    public static int getPinScore(int id)
+    {
+        JSONObject json = new JSONObject();
+        URL url;
+        HttpURLConnection urlConnection;
+        DataOutputStream printout;
+        JSONParser parser = new JSONParser();
+
+        int score = -1;
+
+        try{
+            String http = SERVER_URL + "/pins/getScore/" + id;
+
+            url = new URL(http);
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            // GETTING
+            urlConnection.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(urlConnection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            //not sure if necessary, but response is a string buffer, so...?
+            String s = response.toString();
+
+            try{
+                //parse the response
+                JSONObject obj = (JSONObject) parser.parse(s);
+
+                score = ((Long) obj.get("Score")).intValue();
+
+            }catch (ParseException e){
+                e.printStackTrace();
+                return -1;
+            }
+
+            in.close();
+
+            //print result
+            System.out.println("Response code: " + urlConnection.getResponseCode());
+            urlConnection.disconnect();
+
+        }catch (MalformedURLException e){
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return score;
+    }
+
     public static List<Pin> getPinByBounds(double lat1, double lng1, double lat2, double lng2)
     {
 

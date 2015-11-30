@@ -3,7 +3,8 @@
     android:layout_width="350dp"
     android:layout_height="200dp"
     android:gravity="center_vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#58afed">
 
     <LinearLayout
         android:layout_width="300dp"
@@ -18,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:weightSum="1">
 
         <TextView
@@ -26,7 +28,8 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="Title"
-            android:layout_weight="0.29" />
+            android:layout_weight="0.29"
+            android:textColor="#ffffff"/>
 
         <TextView
             android:id="@+id/score"
@@ -34,35 +37,45 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="Score"
-            android:layout_weight="0.29" />
+            android:layout_weight="0.29"
+            android:textColor="#ffffff"/>
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/snippet"
-            android:layout_width="151dp"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
             android:text="snippet"
-            android:layout_weight="0.29" />
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.29"
+            android:textColor="#ffffff"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
 
         <Button
             android:id="@+id/Here"
             android:layout_width="90dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"/>
         <Button
             android:id="@+id/Gone"
             android:layout_width="90dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"/>
         <Button
             android:id="@+id/Report"
             android:layout_width="90dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"/>
 
         </LinearLayout>

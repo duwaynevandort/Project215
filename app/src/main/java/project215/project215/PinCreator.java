@@ -73,8 +73,8 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(20 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(10 * 1000); // 1 second, in milliseconds
+                .setInterval(1 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
         //My attempt at getting location
 //        try {
@@ -143,7 +143,7 @@ public class PinCreator extends Activity implements GoogleApiClient.ConnectionCa
     @Override
     public void onConnected(Bundle bundle)
     {
-
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.i(TAG, "location connected");
         if (location == null) {
